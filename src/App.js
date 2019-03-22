@@ -5,6 +5,7 @@ import AppNavBar from './COMPONENTS/layout/AppNavBar';
 import Dashboard from './COMPONENTS/layout/Dashboard';
 import AddClient from './COMPONENTS/clients/AddClient';
 import ClientDetails from './COMPONENTS/clients/ClientDetails';
+import EditClient from './COMPONENTS/clients/EditClient';
 
 import './App.css';
 
@@ -22,6 +23,7 @@ class App extends Component {
                       <Switch>
                           <Route exact path="/" component={Dashboard}/>
                           <Route exact path="/client/add" component={AddClient}/>
+                          <Route exact path="/client/edit/:id" component={EditClient}/>
                           <Route exact path="/client/:id" component={ClientDetails}/>
                       </Switch>
                   </div>
