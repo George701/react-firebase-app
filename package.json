@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "firebase": "^5.9.0",
+    "prop-types": "*",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-redux": "^5.1.1",
@@ -11,8 +12,8 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
     "redux": "^4.0.1",
-    "redux-firestore": "^0.7.2",
-    "prop-types": "*"
+    "redux-auth-wrapper": "^2.0.3",
+    "redux-firestore": "^0.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
