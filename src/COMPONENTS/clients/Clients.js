@@ -63,7 +63,7 @@ class Clients extends Component {
                                 <tr key={client.id}>
                                     <td>{client.firstName} {client.lastName}</td>
                                     <td>{client.email}</td> 
-                                    <td>${parseFloat(client.balance).toFixed(2)}</td> 
+                                    <td><span className={parseFloat(client.balance) > 0 ? 'text-success' : 'text-danger'}>${parseFloat(client.balance).toFixed(2)}</span></td> 
                                     <td>
                                         <Link to={`/client/${client.id}`} className="btn btn-secondary btn-sm">
                                             <i className="fas fa-arrow-circle-right"/> Details
