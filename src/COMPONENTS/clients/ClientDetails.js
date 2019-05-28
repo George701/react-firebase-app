@@ -9,8 +9,62 @@ import Spinner from '../layout/Spinner';
 
 
 class ClientDetails extends Component {
+    state = {
+        showBalanceUpdate: false,
+        balanceUpdateAmount: ''
+    }
+
+    onChange = e => this.setState({[e.target.name]: e.target.value});
+
+    balanceSubmit = e => {
+        e.preventDefault();
+
+        const { client, firestore } = this.props;
+        const { balanceUpdateAmount } = this.state;
+
+        const clientUpdate = {
+            balance: parseFloat(balanceUpdateAmount)
+        }
+
+        // Update in firestore
+        firestore.update({collection: 'clients', doc: client.id}, clientUpdate);
+    }
+
+    onDeleteClick = () => {
+        const { client, firestore, history } = this.props;
+
+        firestore
+            .delete({collection: 'clients', doc: client.id})
+            .then(() => history.push('/'));
+    }
+
     render() {
         const { client } = this.props;
+        const { showBalanceUpdate, balanceUpdateAmount } = this.state;
+
+        let balanceForm = '';
+        // If balance form should display
+        if(showBalanceUpdate){
+            balanceForm = (
+                <form onSubmit={this.balanceSubmit}>
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="balanceUpdateAmount"
+                            placeholder="Add New Balance"
+                            value={balanceUpdateAmount}
+                            onChange={this.onChange}
+                        />
+                        <div className="input-group-ap">
+                            <input type="submit" value="Update" className="btn btn-outline-dark"/>   
+                        </div>
+                    </div>
+                </form>
+            )
+        }else{
+            balanceForm = null;
+        }
 
         if(client){
             return (
@@ -26,7 +80,7 @@ class ClientDetails extends Component {
                                 <Link to={`/client/edit/${client.id}`} className="btn btn-dark">
                                     Edit
                                 </Link>
-                                <button className="btn btn-danger">
+                                <button className="btn btn-danger" onClick={this.onDeleteClick}>
                                     Delete
                                 </button>
                             </div>
@@ -44,9 +98,16 @@ class ClientDetails extends Component {
                                 </div>
                                 <div className="col-md-4 col-sm-6">
                                     <h3 className="pull-right">Balance: <span className={parseFloat(client.balance) > 0 ? 'text-success' : 'text-danger'}>${parseFloat(client.balance).toFixed(2)}</span>
-                                    
+                                    {' '}
+                                    <small>
+                                        <a href="#!" onClick={() => this.setState({
+                                            showBalanceUpdate: !this.state.showBalanceUpdate
+                                        })}>
+                                            <i className="fas fa-pencil-alt"></i>
+                                        </a>
+                                    </small>
                                     </h3>
-                                    {/* @todo - balance form */}
+                                    {balanceForm}
                                 </div>
                             </div>
 
