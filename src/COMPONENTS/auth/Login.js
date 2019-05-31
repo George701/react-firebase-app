@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 // import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { firebaseConnect } from 'react-redux-firebase';
+// import {UserIsNotAuthenticated} from '../../helpers/auth'
 
 class Login extends Component {
     state = {
@@ -57,5 +58,10 @@ class Login extends Component {
 Login.propTypes = {
     firebase: PropTypes.object.isRequired
 }
+
+// export default compose(
+//     UserIsNotAuthenticated,
+//     firebaseConnect(),
+// )(Login);
 
 export default firebaseConnect()(Login);
