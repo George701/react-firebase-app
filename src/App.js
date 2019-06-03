@@ -13,6 +13,7 @@ import AddClient from './components/clients/AddClient';
 import ClientDetails from './components/clients/ClientDetails';
 import EditClient from './components/clients/EditClient';
 import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 import Settings from './components/settings/Settings';
 
 class App extends Component {
@@ -30,6 +31,7 @@ class App extends Component {
                 <Route exact path="/client/edit/:id" component={UserIsAuthenticated(EditClient)} />
                 <Route exact path="/settings" component={UserIsAuthenticated(Settings)} />
                 <Route exact path="/login" component={UserIsNotAuthenticated(Login)} />
+                <Route exact path="/register" component={UserIsNotAuthenticated(Register)} />
               </Switch>
             </div>
           </div>

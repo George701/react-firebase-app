@@ -41,6 +41,7 @@ class ClientDetails extends Component {
     render() {
         const { client } = this.props;
         const { showBalanceUpdate, balanceUpdateAmount } = this.state;
+        const { disableBalanceOnEdit } = this.props.settings;
 
         let balanceForm = '';
         // If balance form should display
@@ -55,6 +56,7 @@ class ClientDetails extends Component {
                             placeholder="Add New Balance"
                             value={balanceUpdateAmount}
                             onChange={this.onChange}
+                            disabled={disableBalanceOnEdit}
                         />
                         <div className="input-group-ap">
                             <input type="submit" value="Update" className="btn btn-outline-dark"/>   
@@ -136,7 +138,8 @@ export default compose(
     firestoreConnect(props => [
       { collection: "clients", storeAs: "client", doc: props.match.params.id }
     ]),
-    connect(({ firestore: { ordered } }) => ({
-      client: ordered.client && ordered.client[0]
+    connect(({ firestore: { ordered }, settings }) => ({
+      client: ordered.client && ordered.client[0],
+      settings
     }))
 )(ClientDetails);
